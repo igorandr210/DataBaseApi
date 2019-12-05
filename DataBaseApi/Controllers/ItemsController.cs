@@ -18,39 +18,54 @@ namespace DataBaseApi.Controllers
             _applicationContext = applicationContext;
         }
 
-        // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ItemModel>>> Get()
         {
-            return null;
+            return Ok(_applicationContext.GetAllItems());
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ItemModel>> Get(int id)
         {
-            return null;
+            var item = await _applicationContext.GetItem(id);
+            if (item != null)
+            {
+                return Ok(item);
+            }
+            return NotFound($"Item with id:{id} is not found.");
         }
 
-        // POST api/values
         [HttpPost]
         public async Task<ActionResult<ItemModel>> Post([FromBody] ItemModel item)
         {
-            return null;
+            if (await _applicationContext.AddItem(item))
+            {
+                return Ok(item);
+            }
+
+            return StatusCode(400, "Invalid parameters.");
         }
 
-        // PUT api/values/5
         [HttpPut]
-        public async Task<ActionResult<ItemModel>> Put([FromBody] ItemModel model)
+        public async Task<ActionResult<ItemModel>> Put([FromBody] ItemModel item)
         {
-            return null;
+            if (await _applicationContext.UpdateItem(item))
+            {
+                return Ok(item);
+            }
+
+            return StatusCode(400, "Invalid parameters.");
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            return null;
+            if (await _applicationContext.DeleteItem(id))
+            {
+                return Ok(id);
+            }
+
+            return StatusCode(400, "Invalid parameters.");
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataBaseApi;
 using DataBaseApi.Controllers;
 using DataBaseApi.Models;
@@ -22,14 +23,14 @@ namespace Tests
         }
 
         [Test]
-        public void TestGetItem()
+        public async Task TestGetItem()
         {
             var id = 1;
 
-            var response = _controller.Get(id).Result;
-            var value = response.Value;
+            var response = (await _controller.Get(id)).Result as ObjectResult;
+            var value = response.Value as ItemModel;
 
-            Assert.Equals(value.Id,1);
+            Assert.AreEqual(value.Id,1);
         }
 
         [Test]
@@ -74,11 +75,11 @@ namespace Tests
         }
 
         [Test]
-        public void TestGetAll_ReturnTrueCount()
+        public async Task TestGetAll_ReturnTrueCount()
         {
-            var okResult = _controller.Get().Result;
-
-            Assert.Equals(5, okResult.Value.Count());
+            var okResult = (await _controller.Get()).Result as ObjectResult;
+            
+            Assert.AreEqual(5, (okResult.Value as IEnumerable<ItemModel>).Count());
         }
 
         [Test]
