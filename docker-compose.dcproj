@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>fb0dd850-c2d3-40fc-8d1c-2f6ca476691f</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/values</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/items</DockerServiceUrl>
     <DockerServiceName>databaseapi</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

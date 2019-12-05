@@ -62,7 +62,7 @@ namespace DataBaseApi.Controllers
         {
             if (await _applicationContext.DeleteItem(id))
             {
-                return Ok(id);
+                return Ok($"Item with id:{id} deleted.");
             }
 
             return StatusCode(400, "Invalid parameters.");

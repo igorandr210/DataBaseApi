@@ -2,12 +2,21 @@ version: '3.4'
 
 services:
   databaseapi:
+    links:  
+      - db 
     image: ${DOCKER_REGISTRY-}databaseapi
     build:
       context: .
       dockerfile: DataBaseApi/Dockerfile
-  db:
-    image: "mcr.microsoft.com/mssql/server"
-    environment:
-      SA_PASSWORD: "Your_password123"
-      ACCEPT_EULA: "Y"
+  db:  
+    image: microsoft/mssql-server-linux:2017-latest  
+    hostname: 'sqlserver'  
+    environment:  
+      ACCEPT_EULA: Y  
+      SA_PASSWORD: "BigPassw0rd"  
+    volumes:  
+      - ./data/mssql:/var/opt/mssql3  
+    ports:  
+      - '1433:1433'  
+    expose:  
+      - 1433  

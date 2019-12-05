@@ -10,14 +10,14 @@ namespace DataBaseApi
     public class ApplicationContext:DbContext
     {
         public DbSet<ItemModel> Items { get; set; }
-        public ApplicationContext()
-        {
-            Database.EnsureCreated();
-        }
 
         public ApplicationContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+            var isCreated=this.Database.EnsureCreated();
+            if (!isCreated)
+            {
+                Database.Migrate();
+            }
         }
 
         public async Task<bool> UpdateItem(ItemModel item)
@@ -51,6 +51,7 @@ namespace DataBaseApi
 
             return (await this.SaveChangesAsync() > 0);
         }
+
         public async Task<bool> DeleteItem(int id)
         {
             var item = await Items.FirstOrDefaultAsync(x => x.Id == id);
