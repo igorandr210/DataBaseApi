@@ -27,27 +27,30 @@ namespace DataBaseApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<ItemModel>> Get(int id)
         {
-            return "value";
+            return null;
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<ItemModel>> Post([FromBody] ItemModel item)
         {
+            return null;
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<ActionResult<ItemModel>> Put([FromBody] ItemModel model)
         {
+            return null;
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            return null;
         }
     }
 }
